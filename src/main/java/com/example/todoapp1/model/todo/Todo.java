@@ -1,8 +1,8 @@
 package com.example.todoapp1.model.todo;
 
-import com.example.todoapp1.model.CustomLocalDateTimeSerializer;
+
+import com.example.todoapp1.model.todo.dto.ScheduleReqDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -10,12 +10,12 @@ import org.hibernate.annotations.ColumnDefault;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
-@Entity(name = "ToDo")
-@Table(name = "todo")
+
+@Entity
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TodoEntity {
+public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //기본키를 db가 자동으로 생성
@@ -28,7 +28,7 @@ public class TodoEntity {
     @Column(name = "todoDate")
     private LocalDate date; //날짜
 
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class) //LocalDateTime을 직렬화
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column
     private LocalDateTime notiTime; //알림시간
 
@@ -47,6 +47,18 @@ public class TodoEntity {
     @ColumnDefault("false")
     private Boolean isDone; //완료여부
 
+    @Column
+    private String category;
 
-
+    public Todo(ScheduleReqDTO scheduleReqDTO) {
+        Category category = new Category();
+        this.title = scheduleReqDTO.getTitle();
+        this.date = scheduleReqDTO.getDate();
+        this.notiTime = scheduleReqDTO.getNotiTime();
+        this.priority = scheduleReqDTO.getPriority();
+        this.isNoti = scheduleReqDTO.getIsNoti();
+        this.isImportant = scheduleReqDTO.getIsImportant();
+        this.isDone = scheduleReqDTO.getIsDone();
+        this.category = category.getName(scheduleReqDTO.getCategoryId());
+    }
 }

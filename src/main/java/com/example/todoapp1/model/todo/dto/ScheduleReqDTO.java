@@ -1,19 +1,22 @@
-package com.example.todoapp1.model.todo;
+package com.example.todoapp1.model.todo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TodoRequest {
+public class ScheduleReqDTO {
     private String title;
     private Long priority;
-    private Boolean completed;
     private Boolean isNoti;
     private Boolean isImportant;
     private Boolean isDone;
-    private String date;
-    private String notiTime;
+    private LocalDate date;
+    private LocalDateTime notiTime;
+    private Long categoryId;
 }
