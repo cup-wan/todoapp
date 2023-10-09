@@ -1,6 +1,7 @@
 HELP.md
 .gradle
 build/
+!build/libs/todoapp1-0.0.1-SNAPSHOT-plain.jar
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
