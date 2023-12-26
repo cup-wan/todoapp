@@ -1,6 +1,10 @@
 package com.example.todoapp1.model.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -8,23 +12,28 @@ import java.time.LocalDate;
 public class User {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
-    private String socialDomain;
+    private String password;
 
-    @Column(nullable = false)
+    @Column
     private String nickName;
 
-    @Column(nullable = false)
+    @Column
+//    @ColumnDefault("ROLE_USER")
     private String role;
 
-    @Column(nullable = false)
+    @CreationTimestamp
+    @Column
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdAt;
 
-    @Column(nullable = false)
+    @Column
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate withdrawAt;
 }

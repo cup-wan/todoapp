@@ -1,7 +1,7 @@
 package com.example.todoapp1.model.todo;
 
 
-import com.example.todoapp1.model.todo.dto.ScheduleReqDTO;
+import com.example.todoapp1.model.todo.dto.schedule.ScheduleReadReq;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,7 +32,7 @@ public class Todo {
     @Column
     private LocalDateTime notiTime; //알림시간
 
-    @Column(name = "priority", nullable = false) //order는 예약어이므로 todoOrder로 변경
+    @Column(name = "priority", nullable = false)
     private Long priority; //우선순위
 
     @Column(nullable = false)
@@ -47,18 +47,18 @@ public class Todo {
     @ColumnDefault("false")
     private Boolean isDone; //완료여부
 
-    @Column
-    private String category;
+    @JoinColumn(name = "category_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
 
-    public Todo(ScheduleReqDTO scheduleReqDTO) {
-        Category category = new Category();
-        this.title = scheduleReqDTO.getTitle();
-        this.date = scheduleReqDTO.getDate();
-        this.notiTime = scheduleReqDTO.getNotiTime();
-        this.priority = scheduleReqDTO.getPriority();
-        this.isNoti = scheduleReqDTO.getIsNoti();
-        this.isImportant = scheduleReqDTO.getIsImportant();
-        this.isDone = scheduleReqDTO.getIsDone();
-        this.category = category.getName(scheduleReqDTO.getCategoryId());
+    public Todo(String title, LocalDate date, LocalDateTime notiTime, Long priority, Boolean isNoti, Boolean isImportant, Boolean isDone, Category category) {
+        this.title = title;
+        this.date = date;
+        this.notiTime = notiTime;
+        this.priority = priority;
+        this.isNoti = isNoti;
+        this.isImportant = isImportant;
+        this.isDone = isDone;
+        this.category = category;
     }
 }

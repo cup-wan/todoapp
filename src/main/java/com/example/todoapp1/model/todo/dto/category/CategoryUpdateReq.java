@@ -1,14 +1,13 @@
-package com.example.todoapp1.model.todo.dto;
+package com.example.todoapp1.model.todo.dto.category;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDTO {
-    private List<String> category;
+public class CategoryUpdateReq {
+    private Long id;
+    private String name;
 }
